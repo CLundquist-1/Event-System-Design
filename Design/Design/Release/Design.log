@@ -1,17 +1,18 @@
 ﻿  EntityManager.cpp
+EntityManager.cpp(35): warning C4267: 'argument': conversion from 'size_t' to 'short', possible loss of data
   Game.cpp
   main.cpp
 main.cpp(10): warning C4101: 'b': unreferenced local variable
-\\samba.cs.ucalgary.ca\colt.lundquist\documents\cpsc 585\design\event-system-design\design\design\EntityManager.h(56): warning C4267: 'argument': conversion from 'size_t' to 'unsigned short', possible loss of data
-  main.cpp(23): note: see reference to function template instantiation 'void EntityManager::AddComponent<BodyComponent>(Entity &,T)' being compiled
+\\samba.cs.ucalgary.ca\colt.lundquist\documents\cpsc 585\design\event-system-design\design\design\EntityManager.h(70): warning C4267: 'argument': conversion from 'size_t' to 'unsigned short', possible loss of data
+  main.cpp(23): note: see reference to function template instantiation 'void EntityManager::AddComponent<BodyComponent>(Entity &,T &&)' being compiled
           with
           [
               T=BodyComponent
           ]
   Generating code
-  0 of 376 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  27 of 376 functions ( 7.2%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    44 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Design.vcxproj -> \\samba.cs.ucalgary.ca\colt.lundquist\Documents\CPSC 585\Design\Event-System-Design\Design\Release\Design.exe
   Design.vcxproj -> \\samba.cs.ucalgary.ca\colt.lundquist\Documents\CPSC 585\Design\Event-System-Design\Design\Release\Design.pdb (Full PDB)

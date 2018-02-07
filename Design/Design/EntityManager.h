@@ -23,24 +23,38 @@ using ComponentTuple = std::tuple<COMPONENTS>;
 class EntityManager {
 private:
 	static ComponentTuple components;
-	static size_t nextEntityId;
+	//static size_t nextEntityId;
+	static int staticCount;
+	static Entity& CreateEntity(vector<Entity> &entities, short i);
 public:
+	//Variables
 	static vector<Entity> dynamicEntities;
 	static vector<Entity> staticEntities;
 	static vector<Transform> transforms;
+
 	//These are returning references to the original
 	static Entity& CreateDynamicEntity();
 	static Entity& CreateStaticEntity();
-	static Entity& CreateEntity(vector<Entity> &entities);
+
+	//TODO We will decide whether or not we need deletes
 	
-	//static void AddComponent(ComponentType);
+	//Initializing
 	static void Initialize(int);
 
+	//Find Entities
+	static Entity* FindEntity(short id);
+	static vector<Entity*> FindEntities(std::string tag);
+
+	//Setting tags
+	static void SetTag(short id, std::string tag);
+
+	//Get Component Type Specific Vector
 	template<class T>
 	static auto& Components();
 
+
 	template<class T>
-	static void AddComponent(Entity&, T);
+	static void AddComponent(Entity&, T&&);
 };
 
 template<class T>
@@ -50,8 +64,15 @@ auto& EntityManager::Components()
 }
 
 template<class T>
-void EntityManager::AddComponent(Entity& e, T c) {
+void EntityManager::AddComponent(Entity& e, T&& c) {
 	auto& comp = Components<T>();
 	comp.push_back(c);
 	e.SetComponent(c.GetType(), comp.size());
 }
+
+/*template<class T>
+void EntityManager::AddComponent(short id, T&& c) {
+	auto& comp = Components<T>();
+	comp.push_back(c);
+	e.SetComponent(c.GetType(), comp.size());
+}*/

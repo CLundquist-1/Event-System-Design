@@ -1,7 +1,7 @@
 #include "Entity.h"
-Entity::Entity(size_t i) : id(i) {}
+Entity::Entity(short i) : id(i) {}
 
-size_t Entity::GetId() const {
+short Entity::GetId() const {
 	return id;
 }
 unsigned short Entity::GetComponentIndex(ComponentType t) const {

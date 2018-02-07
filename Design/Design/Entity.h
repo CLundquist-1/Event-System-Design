@@ -11,11 +11,11 @@ class EntityManager;
 class Entity {
 	friend class EntityManager;
 private:
-	Entity(size_t _id);
-	size_t id;
+	Entity(short _id);
+	short id;
 	array<unsigned short, ComponentType_Count> components;
 public:
-	size_t GetId() const;
+	short GetId() const;
 	void SetComponent(ComponentType t, unsigned short i) { components[t] = i; }
 	void SetId(int i) { id = i; }						//Remove This!!!!!
 	unsigned short GetComponentIndex(ComponentType t) const;
