@@ -6,14 +6,14 @@ using std::cout;
 using std::endl;
 
 enum ComponentType {
-	ComponentType_Mesh,
 	ComponentType_Camera,
 	ComponentType_PointLight,
 	ComponentType_DirectionLight,
 	ComponentType_SpotLight,
 	ComponentType_Body,
 	ComponentType_Driver,
-	ComponentType_Count
+	ComponentType_Count,
+	ComponentType_Mesh
 };
 
 template<class T,  EventType... events>

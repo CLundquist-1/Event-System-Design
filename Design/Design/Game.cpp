@@ -6,18 +6,19 @@ unsigned short Game::numPlayers = 0;
 #define X(ARG) std::vector<ARG>
 std::tuple<EVENTS> Game::events;
 #undef X
-#undef EVENTS
 
 void Game::Initialize(int players, int contestants) {
 	EntityManager::Initialize(contestants);
 	numContestants = contestants;
 	numPlayers = players;
-	Events<CollisionEvent>().reserve(4);
+#define X(ARG) 	Events<ARG>().reserve(4);
+	EVENTS
+#undef X
 }
 
 void Game::ResolveEvents() {
-	for (CollisionEvent e : Events<CollisionEvent>()) {
-		EventHandler<CollisionEvent>::HandleEvent(&e);
-	}
-	Game::Events<CollisionEvent>().clear();
+#define X(ARG) 	for (ARG e : Events<ARG>()) { EventHandler<ARG>::HandleEvent(&e); } Game::Events<ARG>().clear();
+	EVENTS
+#undef X
+#undef EVENTS
 }

@@ -1,15 +1,3 @@
-﻿  EntityManager.cpp
-  Generating Code...
-  Compiling...
-  main.cpp
-\\samba.cs.ucalgary.ca\colt.lundquist\documents\cpsc 585\design\event-system-design\design\design\main.cpp(10): warning C4101: 'b': unreferenced local variable
-\\samba.cs.ucalgary.ca\colt.lundquist\documents\cpsc 585\design\event-system-design\design\design\entitymanager.h(55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned short', possible loss of data
-  \\samba.cs.ucalgary.ca\colt.lundquist\documents\cpsc 585\design\event-system-design\design\design\main.cpp(23): note: see reference to function template instantiation 'void EntityManager::AddComponent<BodyComponent>(Entity &,T)' being compiled
-          with
-          [
-              T=BodyComponent
-          ]
-  Game.cpp
-  Generating Code...
+﻿  Game.cpp
   Design.vcxproj -> \\samba.cs.ucalgary.ca\colt.lundquist\Documents\CPSC 585\Design\Event-System-Design\Design\Debug\Design.exe
   Design.vcxproj -> \\samba.cs.ucalgary.ca\colt.lundquist\Documents\CPSC 585\Design\Event-System-Design\Design\Debug\Design.pdb (Partial PDB)

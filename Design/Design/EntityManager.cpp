@@ -12,16 +12,25 @@ std::tuple<COMPONENTS> EntityManager::components;
 
 
 Entity* EntityManager::FindEntity(short id) {
-	if (id > 0) {
-		return &dynamicEntities[id - 1];
-	}
-	else {
-		return &staticEntities[id - 1];
-	}
+	unsigned short i = id & ~(1 << typeBit);
+	/*if (id & (1 << typeBit))
+		return &dynamicEntities[i];
+	else
+		&staticEntities[i];*/
+	return (id & (1 << typeBit)) ? &dynamicEntities[i] : &staticEntities[i];
 }
 
 vector<Entity*> EntityManager::FindEntities(std::string tag) {
-
+	vector<Entity*> taggedEntities;
+	for (Entity &e : dynamicEntities) {
+		if (tag == e.GetTag())
+			taggedEntities.push_back(&e);
+	}
+	for (Entity &e : staticEntities) {
+		if (tag == e.GetTag())
+			taggedEntities.push_back(&e);
+	}
+	return taggedEntities;
 }
 
 void EntityManager::Initialize(int numContestants) {
@@ -29,10 +38,12 @@ void EntityManager::Initialize(int numContestants) {
 	staticEntities.reserve(128);
 }
 
-Entity& EntityManager::CreateEntity(std::vector<Entity> &entities, short i) {
+Entity& EntityManager::CreateEntity(std::vector<Entity> &entities, unsigned short i) {
 	//size_t id = nextEntityId++;
 	//idToEntity[id] = entity;
-	entities.push_back(Entity((entities.size()+1)*i));
+	entities.push_back(Entity((entities.size() | (i << typeBit))));
+	//cout << "Unisgned Entity ID: " << (unsigned short)entities[0].GetId();
+	//entities.push_back(Entity((entities.size() * i))));
 	Entity& entity = entities.back();
 	return entity;
 }
@@ -42,5 +53,5 @@ Entity& EntityManager::CreateDynamicEntity() {
 }
 
 Entity& EntityManager::CreateStaticEntity() {
-	return CreateEntity(staticEntities, -1);
+	return CreateEntity(staticEntities, 0);
 }

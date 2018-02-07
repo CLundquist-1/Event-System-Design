@@ -17,15 +17,17 @@ int main() {
 	Game::Initialize(4, 8);
 	Entity& e = EntityManager::CreateDynamicEntity();
 	cout << "Entity ID: " << e.GetId() << endl;;
-	e.SetId(1);
-	Entity& e2 = EntityManager::dynamicEntities.back();
-	cout << "Altered Entity ID: " << e2.GetId() << endl;
+	//e.SetId(1);
+	//Entity& e2 = EntityManager::dynamicEntities.back();
+	//cout << "Altered Entity ID: " << e2.GetId() << endl;
 	EntityManager::AddComponent(e, BodyComponent());
 	cout << "BodyComponents Size: " << EntityManager::Components<BodyComponent>().size() << endl;
 	Game::QueEvent(c);
 	cout << "Collision Event Count: " << Game::Events<CollisionEvent>().size() << endl;
 	Game::ResolveEvents();
 	cout << "Collision Event Count: " << Game::Events<CollisionEvent>().size() << endl;
+	cout << "Entity[0] ID: " << std::bitset<16>(EntityManager::FindEntity(0 | 1UL << typeBit)->GetId()) << endl;
+	cout << "Tuple Size: " << std::tuple_size<ComponentTuple>::value << endl;
 	getchar();
 	return 0;
 }

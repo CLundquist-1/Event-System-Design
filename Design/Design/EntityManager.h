@@ -1,8 +1,8 @@
 #pragma once
 #include "Entity.h"
 #include <vector>
-#include "Component.h"
 
+#define typeBit 15
 
 ///As a quick note the entity manager will reserve the first #contestants indices of applicable vectors for the contestants in play, the first #numplayers of which will be human controlled
 
@@ -25,7 +25,7 @@ private:
 	static ComponentTuple components;
 	//static size_t nextEntityId;
 	static int staticCount;
-	static Entity& CreateEntity(vector<Entity> &entities, short i);
+	static Entity& CreateEntity(vector<Entity> &entities, unsigned short i);
 public:
 	//Variables
 	static vector<Entity> dynamicEntities;
@@ -55,6 +55,8 @@ public:
 
 	template<class T>
 	static void AddComponent(Entity&, T&&);
+	
+	static constexpr size_t ComponentTupleSize() { return std::tuple_size<ComponentTuple>::value; }
 };
 
 template<class T>
