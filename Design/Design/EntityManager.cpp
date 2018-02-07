@@ -1,7 +1,11 @@
 #include "EntityManager.h"
 vector<Entity> EntityManager::dynamicEntities;
 vector<Entity> EntityManager::staticEntities;
-vector<BodyComponent> EntityManager::BodyComponents;
+#define COMPONENTS 	X(BodyComponent)
+#define X(ARG) std::vector<ARG>
+std::tuple<COMPONENTS> EntityManager::components;
+#undef X
+#undef COMPONENTS
 
 size_t EntityManager::nextEntityId = 0;
 
@@ -24,9 +28,4 @@ Entity& EntityManager::CreateDynamicEntity() {
 
 Entity& EntityManager::CreateStaticEntity() {
 	return CreateEntity(staticEntities);
-}
-
-void EntityManager::AddComponent(Entity& e, BodyComponent c) {
-	BodyComponents.push_back(c);
-	e.SetComponent(c.GetType(), BodyComponents.size());
 }

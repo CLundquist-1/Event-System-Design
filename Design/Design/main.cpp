@@ -21,11 +21,25 @@ int main() {
 	Entity& e2 = EntityManager::dynamicEntities.back();
 	cout << "Altered Entity ID: " << e2.GetId() << endl;
 	EntityManager::AddComponent(e, BodyComponent());
-	cout << "BodyComponents Size: " << EntityManager::BodyComponents.size() << endl;
+	cout << "BodyComponents Size: " << EntityManager::Components<BodyComponent>().size() << endl;
 	Game::QueEvent(c);
-	cout << "Collision Event Count: " << Game::CE.size() << endl;
+	cout << "Collision Event Count: " << Game::Events<CollisionEvent>().size() << endl;
 	Game::ResolveEvents();
-	cout << "Collision Event Count: " << Game::CE.size() << endl;
+	cout << "Collision Event Count: " << Game::Events<CollisionEvent>().size() << endl;
 	getchar();
 	return 0;
 }
+
+
+/*#include <tuple>
+#include <vector>
+#include <iostream>
+
+int main() {
+	auto& data = getter<int>(components);
+	data.push_back(1);
+
+	const auto& data2 = getter<int>(components);
+	std::cout << data2[0];
+	//std::cin.get();
+}*/

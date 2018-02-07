@@ -13,16 +13,15 @@ enum ComponentType {
 };
 */
 
-template<bool, class E> struct BodySelector {
+template<bool, class E, class C> struct ComponentSelector {
 	static void HandleEvent(E *e) { }
 };
 
-template<class E> struct BodySelector<true, E> {
+template<class E, class C> struct ComponentSelector<true, E, C> {
 	static void HandleEvent(E *e) {
-		for (BodyComponent c : EntityManager::BodyComponents) {
+		for (C c : EntityManager::Components<C>()) {
 			c.HandleEvent(e);
 		}
-		EntityManager::BodyComponents.clear();
 	}
 };
 
@@ -30,6 +29,9 @@ template<class E>
 class EventHandler {
 public:
 	static void HandleEvent(E *e) {
-		BodySelector <E::GetBitMask() & BodyComponent::GetListeners(), E>::HandleEvent(e);
+#define X(ARG) ComponentSelector <E::GetBitMask() & ARG::GetListeners(), E, ARG>::HandleEvent(e);
+		COMPONENTS
+#undef X
+		//ComponentSelector <E::GetBitMask() & BodyComponent::GetListeners(), E, BodyComponent>::HandleEvent(e);
 	}
 };
