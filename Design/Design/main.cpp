@@ -17,15 +17,31 @@ int main() {
 	Game::Initialize(4, 8);
 	Entity& e = EntityManager::CreateDynamicEntity();
 	cout << "Entity ID: " << e.GetId() << endl;;
-	e.SetId(1);
-	Entity& e2 = EntityManager::dynamicEntities.back();
-	cout << "Altered Entity ID: " << e2.GetId() << endl;
+	//e.SetId(1);
+	//Entity& e2 = EntityManager::dynamicEntities.back();
+	//cout << "Altered Entity ID: " << e2.GetId() << endl;
 	EntityManager::AddComponent(e, BodyComponent());
-	cout << "BodyComponents Size: " << EntityManager::BodyComponents.size() << endl;
+	cout << "BodyComponents Size: " << EntityManager::Components<BodyComponent>().size() << endl;
 	Game::QueEvent(c);
-	cout << "Collision Event Count: " << Game::CE.size() << endl;
+	cout << "Collision Event Count: " << Game::Events<CollisionEvent>().size() << endl;
 	Game::ResolveEvents();
-	cout << "Collision Event Count: " << Game::CE.size() << endl;
+	cout << "Collision Event Count: " << Game::Events<CollisionEvent>().size() << endl;
+	cout << "Entity[0] ID: " << std::bitset<16>(EntityManager::FindEntity(0 | 1UL << typeBit)->GetId()) << endl;
+	cout << "Tuple Size: " << std::tuple_size<ComponentTuple>::value << endl;
 	getchar();
 	return 0;
 }
+
+
+/*#include <tuple>
+#include <vector>
+#include <iostream>
+
+int main() {
+	auto& data = getter<int>(components);
+	data.push_back(1);
+
+	const auto& data2 = getter<int>(components);
+	std::cout << data2[0];
+	//std::cin.get();
+}*/

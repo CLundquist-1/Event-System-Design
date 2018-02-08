@@ -1,17 +1,24 @@
 #include "Game.h"
 unsigned short Game::numContestants = 0;
 unsigned short Game::numPlayers = 0;
-vector<CollisionEvent> Game::CE;
+
+#define EVENTS 	X(CollisionEvent)
+#define X(ARG) std::vector<ARG>
+std::tuple<EVENTS> Game::events;
+#undef X
 
 void Game::Initialize(int players, int contestants) {
 	EntityManager::Initialize(contestants);
 	numContestants = contestants;
 	numPlayers = players;
-	CE.reserve(4);
+#define X(ARG) 	Events<ARG>().reserve(4);
+	EVENTS
+#undef X
 }
 
 void Game::ResolveEvents() {
-	for (CollisionEvent e : CE) {
-		EventHandler<CollisionEvent>::HandleEvent(&e);
-	}
+#define X(ARG) 	for (ARG e : Events<ARG>()) { EventHandler<ARG>::HandleEvent(&e); } Game::Events<ARG>().clear();
+	EVENTS
+#undef X
+#undef EVENTS
 }
